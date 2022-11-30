@@ -1,5 +1,10 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+
+import { CarList } from "./components/CarList";
+
+import * as S from "./App.styles";
 
 const theme = createTheme({
   palette: {
@@ -11,9 +16,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <header className="App-header">
-        <p>Clevershuttle test</p>
-      </header>
+      <S.AppContainer>
+        <CarList />
+      </S.AppContainer>
     </ThemeProvider>
   );
 }
