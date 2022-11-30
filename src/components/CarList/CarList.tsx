@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { CarTable } from "./components/CarTable";
+import { CarsLoadingState } from "./components/CarsLoadingState";
 
 interface Car {
   id: number;
@@ -15,19 +16,21 @@ interface Car {
 
 const CarList = () => {
   const [cars, setCars] = React.useState<Car[]>([]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     fetch("https://nckbku0m91.execute-api.eu-central-1.amazonaws.com/cars")
       .then((result) => result.json())
       .then((cars) => {
         setCars(cars);
+        setIsLoading(false);
       });
   }, []);
 
   return (
-    <div>
-      <CarTable cars={cars} />
-    </div>
+    <div>{isLoading ? <CarsLoadingState /> : <CarTable cars={cars} />}</div>
   );
 };
 
