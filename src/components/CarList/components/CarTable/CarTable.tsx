@@ -8,22 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-interface Car {
-  id: number;
-  brand: string;
-  licensePlate: string;
-  manufacturer: string;
-  operationCity: string;
-  status: "available" | "in-maintenance" | "out-of-service";
-  createdAt: string;
-  lastUpdatedAt: string;
-}
-
-interface CarTableProps {
-  cars: Car[];
-}
+import type { CarTableProps } from "./CarTable.types";
 
 const CarTable: React.FC<CarTableProps> = ({ cars }) => {
+  function handleRowClick(id: number) {
+    alert(id);
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -37,7 +28,13 @@ const CarTable: React.FC<CarTableProps> = ({ cars }) => {
         </TableHead>
         <TableBody>
           {cars.map((car) => (
-            <TableRow>
+            <TableRow
+              data-testid={`cartable-row`}
+              key={car.id}
+              onClick={() => handleRowClick(car.id)}
+              hover
+              sx={{ cursor: "pointer" }}
+            >
               <TableCell>{car.brand}</TableCell>
               <TableCell>{car.manufacturer}</TableCell>
               <TableCell>{car.operationCity}</TableCell>
